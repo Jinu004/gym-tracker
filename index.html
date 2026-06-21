@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <meta name="theme-color" content="#1a4a8a">
+    <meta name="theme-color" content="#0d0f12">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Gym Tracker">
@@ -26,7 +26,7 @@
             --done: #22c55e;
             --blue: #1a4a8a;
             --purple: #7b2d8b;
-            --nav-active: #1a4a8a;
+            --nav-active: #00c4b4;
         }
 
         @media(prefers-color-scheme:dark) {
@@ -40,7 +40,7 @@
                 --border: #2a2d35;
                 --jinu: #00d4c4;
                 --neerav: #e050ff;
-                --nav-active: #6aa7e0
+                --nav-active: #00d4c4
             }
         }
 
@@ -67,7 +67,8 @@
         }
 
         .topbar {
-            background: linear-gradient(155deg, #2c3c5e 0%, #1b2436 55%, #141a26 100%);
+            background: #0d0f12;
+            border-bottom: 1px solid #1e2128;
             padding: calc(16px + env(safe-area-inset-top)) 18px 18px;
             position: sticky;
             top: 0;
@@ -85,16 +86,18 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            font-size: 19px;
-            font-weight: 700;
+            font-size: 15px;
+            font-weight: 800;
+            letter-spacing: .06em;
+            text-transform: uppercase;
             color: #fff
         }
 
         .tb-logo {
-            width: 34px;
-            height: 34px;
+            width: 36px;
+            height: 36px;
             border-radius: 10px;
-            background: linear-gradient(135deg, #e8651f, #c8440a);
+            background: linear-gradient(135deg, #00c4b4, #9c40ff);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -110,27 +113,28 @@
             display: inline-flex;
             align-items: center;
             gap: 7px;
-            background: rgba(255, 255, 255, .12);
-            border: 1px solid rgba(255, 255, 255, .14);
-            padding: 6px 12px;
+            background: rgba(255, 255, 255, .07);
+            border: 1px solid rgba(255, 255, 255, .1);
+            padding: 6px 13px;
             border-radius: 999px;
             font-size: 12px;
-            font-weight: 600
+            font-weight: 600;
+            letter-spacing: .04em
         }
 
         .tb-dot {
             width: 7px;
             height: 7px;
             border-radius: 50%;
-            background: #5b9bd5
+            background: #00d4c4
         }
 
         .tb-kicker {
             margin-top: 16px;
             font-size: 11px;
             font-weight: 700;
-            letter-spacing: .08em;
-            color: rgba(255, 255, 255, .5);
+            letter-spacing: .1em;
+            color: #00d4c4;
             text-transform: uppercase
         }
 
@@ -143,7 +147,7 @@
         }
 
         .tb-dayname {
-            font-size: 27px;
+            font-size: 32px;
             font-weight: 800;
             line-height: 1
         }
@@ -172,21 +176,21 @@
         }
 
         .tb-prog-count b {
-            color: #6aa7e0;
+            color: #fff;
             font-weight: 700
         }
 
         .tb-prog-track {
-            height: 6px;
+            height: 4px;
             border-radius: 999px;
-            background: rgba(255, 255, 255, .14);
+            background: rgba(255, 255, 255, .1);
             overflow: hidden
         }
 
         .tb-prog-fill {
             height: 100%;
             border-radius: 999px;
-            background: linear-gradient(90deg, #3b7fd1, #6aa7e0);
+            background: linear-gradient(90deg, #d040fb, #00d4c4);
             transition: width .3s
         }
 
@@ -256,7 +260,7 @@
         }
 
         .day-tab.active {
-            background: #1a4a8a;
+            background: var(--jinu);
             color: #fff;
             transform: scale(1.05)
         }
@@ -332,8 +336,9 @@
         .ex-card {
             margin: 8px 16px;
             background: var(--card);
-            border-radius: 14px;
-            border: 1px solid var(--border);
+            border-radius: 16px;
+            border: 1px solid rgba(0, 196, 180, .3);
+            box-shadow: 0 0 18px rgba(0, 196, 180, .06);
             overflow: hidden
         }
 
@@ -357,11 +362,11 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 21px;
-            height: 21px;
-            border-radius: 6px;
-            background: rgba(26, 74, 138, .12);
-            color: #1a4a8a;
+            width: 24px;
+            height: 24px;
+            border-radius: 8px;
+            background: rgba(0, 196, 180, .15);
+            color: var(--jinu);
             font-size: 11px;
             font-weight: 700
         }
@@ -433,7 +438,7 @@
         }
 
         .set-label.logged {
-            background: var(--done);
+            background: var(--jinu);
             color: #fff
         }
 
@@ -458,19 +463,23 @@
         }
 
         .winput-field.jinu {
-            border-color: rgba(0, 196, 180, .4)
+            border-color: rgba(0, 196, 180, .55);
+            box-shadow: 0 0 0 1px rgba(0,196,180,.08) inset
         }
 
         .winput-field.neerav {
-            border-color: rgba(208, 64, 251, .4)
+            border-color: rgba(208, 64, 251, .55);
+            box-shadow: 0 0 0 1px rgba(208,64,251,.08) inset
         }
 
         .winput-field.jinu:focus-within {
-            border-color: var(--jinu)
+            border-color: var(--jinu);
+            box-shadow: 0 0 8px rgba(0,196,180,.2)
         }
 
         .winput-field.neerav:focus-within {
-            border-color: var(--neerav)
+            border-color: var(--neerav);
+            box-shadow: 0 0 8px rgba(208,64,251,.2)
         }
 
         .weight-input {
@@ -1595,15 +1604,14 @@
     <div class="app">
         <div class="topbar">
             <div class="tb-row">
-                <div class="tb-brand"><span class="tb-logo"><svg class="ic"><use href="#i-barbell" /></svg></span> Gym
-                    Tracker</div>
+                <div class="tb-brand"><span class="tb-logo"><svg class="ic"><use href="#i-barbell" /></svg></span> GYM<span style="color:var(--jinu)">·</span>TRACK</div>
                 <div class="tb-datepill"><span class="tb-dot"></span><span id="tbDate">—</span></div>
             </div>
             <div class="tb-kicker" id="tbKicker">BRO SPLIT</div>
             <div class="tb-title"><span class="tb-dayname" id="tbDayName">—</span><span class="tb-focus"
                     id="tbFocus"></span></div>
             <div class="tb-prog">
-                <div class="tb-prog-top"><span>Session progress</span><span class="tb-prog-count"
+                <div class="tb-prog-top"><span style="letter-spacing:.08em;text-transform:uppercase;font-size:10px">Session Load</span><span class="tb-prog-count"
                         id="tbProgCount">0 / 0 sets</span></div>
                 <div class="tb-prog-track">
                     <div class="tb-prog-fill" id="tbProgFill" style="width:0%"></div>
@@ -2069,11 +2077,15 @@
         // Update the gradient header's day name, focus, day number and session-progress bar
         function updateTopbar(day, loggedSets, totalSets) {
             const now = new Date();
-            document.getElementById('tbDate').textContent = now.toLocaleDateString('en-IN', { weekday: 'short', day: 'numeric', month: 'short' });
+            const dd = String(now.getDate()).padStart(2, '0');
+            const mm = String(now.getMonth() + 1).padStart(2, '0');
+            const wd = now.toLocaleDateString('en-US', { weekday: 'short' }).toUpperCase();
+            document.getElementById('tbDate').textContent = `${dd}.${mm} · ${wd}`;
             if (day) {
                 const slotDay = activeDays[currentDay];
                 const isSwapped = slotDay && currentEffectiveDayId && currentEffectiveDayId !== slotDay.id;
-                document.getElementById('tbKicker').textContent = isSwapped ? `SWITCHED FROM ${slotDay.tab.toUpperCase()}` : 'BRO SPLIT';
+                const dayNum = String(currentDay + 1).padStart(2, '0');
+                document.getElementById('tbKicker').textContent = isSwapped ? `SWITCHED FROM ${slotDay.tab.toUpperCase()}` : `BRO SPLIT // DAY ${dayNum}`;
                 document.getElementById('tbDayName').textContent = day.label.split('—')[0].trim();
                 document.getElementById('tbFocus').textContent = day.focus || '';
             } else {
