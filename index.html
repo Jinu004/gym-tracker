@@ -2517,16 +2517,17 @@
                         showToast('Invalid backup file');
                         return;
                     }
-                    if (confirm('Importing backup will overwrite current data. Proceed?')) {
+                    if (confirm('Import logs from backup? Your current workout routines will be kept — only weight logs and session history will be restored.')) {
+                        const currentConfig = JSON.stringify(userDays);
                         for (let i = localStorage.length - 1; i >= 0; i--) {
                             const k = localStorage.key(i);
-                            if (k && k.startsWith('g3_')) {
-                                localStorage.removeItem(k);
-                            }
+                            if (k && k.startsWith('g3_')) localStorage.removeItem(k);
                         }
                         for (const k in data) {
+                            if (k === 'g3_days_config') continue;
                             localStorage.setItem(k, data[k]);
                         }
+                        localStorage.setItem('g3_days_config', currentConfig);
                         initDaysConfig();
                         currentDay = 0;
                         currentWeek = getMaxWeek();
@@ -2535,7 +2536,7 @@
                         renderDayTabs();
                         renderDay();
                         renderSettings();
-                        showToast('Backup restored successfully ✓');
+                        showToast('Logs imported, routines kept ✓');
                     }
                 } catch (err) {
                     showToast('Error reading backup file');
