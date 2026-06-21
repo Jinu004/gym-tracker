@@ -2609,6 +2609,65 @@
             }
         }
 
+        function seedLegacyData() {
+            if (localStorage.getItem('gym_seeded_v1')) return;
+            lsSet('g3_sessions', JSON.stringify({
+                "2026-06-16": [
+                    { dayId:"pullA", label:"Pull A — Tuesday", type:"pull", week:1, ex:[
+                        {name:"T-Bar Row",reps:"10",sets:[{j:"40",n:"20"},{j:"40",n:"22.5"},{j:"40",n:"30"}]},
+                        {name:"Lat pulldown",reps:"10",sets:[{j:"65",n:"35"},{j:"60",n:"35"},{j:"60",n:"30"}]},
+                        {name:"Chinups",reps:"10",sets:[{j:"7",n:"60"},{j:"8",n:"60"},{j:"6",n:"65"}]},
+                        {name:"Deadlift",reps:"10",sets:[{j:"10",n:"5"},{j:"15",n:"5"},{j:"",n:""}]},
+                        {name:"Hammer Curl",reps:"10",sets:[{j:"15",n:"7.5"},{j:"15",n:"7.5"},{j:"12.5",n:"7.5"}]},
+                        {name:"Reverse Curl",reps:"12",sets:[{j:"30",n:"15"},{j:"35",n:"20"},{j:"",n:""}]},
+                        {name:"Preacher Curl",reps:"10",sets:[{j:"15",n:"5"},{j:"15",n:"5"},{j:"15",n:"5"}]}
+                    ]},
+                    { dayId:"pushA", label:"Push A — Monday", type:"push", week:1, ex:[
+                        {name:"Pushup with dumbell",reps:"10",sets:[{j:"",n:""},{j:"",n:""},{j:"",n:""}]},
+                        {name:"Incline Press",reps:"10",sets:[{j:"5",n:""},{j:"5",n:""},{j:"7.5",n:""}]},
+                        {name:"Dips (weighted)",reps:"10-12",sets:[{j:"",n:""},{j:"",n:""},{j:"",n:""}]},
+                        {name:"Incline Dumbbell press",reps:"10",sets:[{j:"12.5",n:""},{j:"12.5",n:""},{j:"12.5",n:""}]},
+                        {name:"Decline press",reps:"12-15",sets:[{j:"15",n:""},{j:"15",n:""},{j:"15",n:""}]},
+                        {name:"Double Overhead Tricep Ext",reps:"10-12",sets:[{j:"15",n:""},{j:"20",n:""},{j:"15",n:""}]},
+                        {name:"Dips",reps:"10",sets:[{j:"10",n:""},{j:"10",n:""},{j:"10",n:""}]}
+                    ]}
+                ],
+                "2026-06-20": [
+                    { dayId:"pushB", label:"Push B — Friday", type:"push", week:1, ex:[
+                        {name:"T bar row",reps:"10",sets:[{j:"40",n:"10"},{j:"50",n:"20"},{j:"40",n:"10"}]},
+                        {name:"Seated Row",reps:"12",sets:[{j:"50",n:"30"},{j:"60",n:"40"},{j:"50",n:"40"}]},
+                        {name:"Pull up",reps:"12-15",sets:[{j:"6",n:"60"},{j:"7",n:"65"},{j:"6",n:"60"}]},
+                        {name:"Wide chinups",reps:"12",sets:[{j:"6",n:"55"},{j:"7",n:"60"},{j:"6",n:"60"}]},
+                        {name:"Bicep pull up",reps:"12-15",sets:[{j:"8",n:"65"},{j:"6",n:"65"},{j:"",n:"60"}]},
+                        {name:"Reverse Pushdown",reps:"12",sets:[{j:"",n:""},{j:"",n:""},{j:"",n:""}]},
+                        {name:"Tricep Kickback",reps:"12",sets:[{j:"",n:""},{j:"",n:""},{j:"",n:""}]}
+                    ]},
+                    { dayId:"legs", label:"Legs — Wednesday", type:"legs", week:1, ex:[
+                        {name:"Dumbell shoulder press",reps:"10",sets:[{j:"10",n:""},{j:"15",n:""},{j:"15",n:""}]},
+                        {name:"Disc front raise",reps:"10",sets:[{j:"10",n:""},{j:"15",n:""},{j:"15",n:""}]},
+                        {name:"Pek flys",reps:"10 each",sets:[{j:"40",n:""},{j:"35",n:""},{j:"35",n:""}]},
+                        {name:"Smith",reps:"12-15",sets:[{j:"20",n:""},{j:"",n:""},{j:"",n:""}]},
+                        {name:"Leg press",reps:"12",sets:[{j:"80",n:""},{j:"100",n:""},{j:"",n:""}]},
+                        {name:"Leg extension",reps:"12-15",sets:[{j:"65",n:""},{j:"65",n:""},{j:"65",n:""}]},
+                        {name:"Calf",reps:"10",sets:[{j:"40",n:""},{j:"40",n:""},{j:"40",n:""}]}
+                    ]},
+                    { dayId:"pullA", label:"Pull A — Tuesday", type:"pull", week:1, ex:[
+                        {name:"T-Bar Row",reps:"10",sets:[{j:"40",n:"20"},{j:"40",n:"22.5"},{j:"40",n:"30"}]},
+                        {name:"Lat pulldown",reps:"10",sets:[{j:"65",n:"35"},{j:"60",n:"35"},{j:"60",n:"30"}]},
+                        {name:"Chinups",reps:"10",sets:[{j:"7",n:"60"},{j:"8",n:"60"},{j:"6",n:"65"}]},
+                        {name:"Deadlift",reps:"10",sets:[{j:"10",n:"5"},{j:"15",n:"5"},{j:"",n:""}]},
+                        {name:"Hammer Curl",reps:"10",sets:[{j:"15",n:"7.5"},{j:"15",n:"7.5"},{j:"12.5",n:"7.5"}]},
+                        {name:"Reverse Curl",reps:"12",sets:[{j:"30",n:"15"},{j:"35",n:"20"},{j:"",n:""}]},
+                        {name:"Preacher Curl",reps:"10",sets:[{j:"15",n:"5"},{j:"15",n:"5"},{j:"15",n:"5"}]}
+                    ]}
+                ]
+            }));
+            lsSet('g3_maxweek','2'); lsSet('g3_date_1','16 Jun 2026'); lsSet('g3_date_2','20 Jun 2026');
+            const w={"g3_w_2_legs_0_0_n":"30","g3_w_1_pushB_2_2_j":"6","g3_w_1_pullA_3_0_n":"5","g3_w_1_pullA_6_1_n":"5","g3_w_1_pushB_1_2_n":"40","g3_w_1_legs_1_1_j":"15","g3_w_1_pullA_5_0_j":"30","g3_w_1_pushA_3_1_j":"12.5","g3_w_1_pushA_5_0_j":"15","g3_w_2_legs_2_1_n":"5","g3_w_1_pullA_1_2_j":"60","g3_w_1_pushA_4_2_j":"15","g3_w_1_legs_5_2_j":"65","g3_w_1_pushA_3_0_j":"12.5","g3_w_2_legs_2_0_j":"10","g3_w_1_pullA_5_0_n":"15","g3_w_1_pushA_1_2_j":"7.5","g3_w_1_pushB_4_0_j":"8","g3_w_1_pullA_1_0_j":"65","g3_w_1_legs_2_1_j":"35","g3_w_1_pushA_5_2_j":"15","g3_w_1_legs_0_1_j":"15","g3_w_1_pushB_4_2_n":"60","g3_w_1_pushB_0_0_j":"40","g3_w_1_pullA_6_2_n":"5","g3_w_1_legs_5_0_j":"65","g3_w_1_pullA_3_1_n":"5","g3_w_1_pullA_4_1_n":"7.5","g3_w_1_pushB_0_0_n":"10","g3_w_1_pullA_2_0_j":"7","g3_w_1_pushB_2_0_j":"6","g3_w_1_pushA_5_1_j":"20","g3_w_1_pullA_2_0_n":"60","g3_w_1_pullA_0_0_n":"20","g3_w_1_pullA_1_1_n":"35","g3_w_1_pushA_6_1_j":"10","g3_w_1_pullA_2_1_j":"8","g3_w_1_pushB_1_2_j":"50","g3_w_2_legs_0_0_j":"50","g3_w_1_pushB_2_2_n":"60","g3_w_1_pushB_4_1_n":"65","g3_w_1_pushB_0_2_j":"40","g3_w_2_legs_2_2_j":"15","g3_w_1_legs_6_1_j":"40","g3_w_1_pullA_4_0_n":"7.5","g3_w_1_pullA_0_0_j":"40","g3_w_1_legs_0_0_j":"10","g3_w_1_pullA_0_2_j":"40","g3_w_1_pushB_1_0_j":"50","g3_w_1_pullA_4_2_n":"7.5","g3_w_1_pullA_1_1_j":"60","g3_w_1_pushB_1_0_n":"30","g3_w_1_legs_0_2_j":"15","g3_w_1_pullA_3_1_j":"15","g3_w_1_legs_1_2_j":"15","g3_w_1_pushB_0_2_n":"10","g3_w_1_pullA_0_1_j":"40","g3_w_1_legs_6_2_j":"40","g3_w_2_legs_2_1_j":"12.5","g3_w_1_pullA_1_0_n":"35","g3_w_1_pullA_4_2_j":"12.5","g3_w_1_pushB_2_0_n":"60","g3_w_1_pullA_3_0_j":"10","g3_w_1_pullA_2_2_j":"6","g3_w_1_pullA_6_0_n":"5","g3_w_1_pullA_4_0_j":"15","g3_w_1_legs_2_0_j":"40","g3_w_1_legs_4_0_j":"80","g3_w_1_pushA_4_1_j":"15","g3_w_1_legs_5_1_j":"65","g3_w_1_pushB_4_1_j":"6","g3_w_1_pushB_2_1_n":"65","g3_w_1_pullA_1_2_n":"30","g3_w_1_pullA_5_1_j":"35","g3_w_1_pushB_4_0_n":"65","g3_w_1_pushB_3_0_n":"55","g3_w_1_pullA_5_1_n":"20","g3_w_1_pushB_3_1_n":"60","g3_w_1_pushA_6_2_j":"10","g3_w_1_pullA_0_2_n":"30","g3_w_1_pushB_3_2_n":"60","g3_w_1_pushB_3_1_j":"7","g3_w_1_pullA_6_2_j":"15","g3_w_1_pullA_6_1_j":"15","g3_w_1_legs_3_0_j":"20","g3_w_1_pushA_4_0_j":"15","g3_w_1_pushA_3_2_j":"12.5","g3_w_1_legs_2_2_j":"35","g3_w_1_pushA_1_0_j":"5","g3_w_1_pullA_6_0_j":"15","g3_w_1_pullA_2_1_n":"60","g3_w_1_pushA_6_0_j":"10","g3_w_1_pullA_0_1_n":"22.5","g3_w_1_pushB_3_2_j":"6","g3_w_1_pullA_4_1_j":"15","g3_w_1_pushA_1_1_j":"5","g3_w_1_legs_6_0_j":"40","g3_w_1_pushB_3_0_j":"6","g3_w_1_pushB_1_1_j":"60","g3_w_1_pushB_0_1_n":"20","g3_w_1_legs_1_0_j":"10","g3_w_1_pushB_1_1_n":"40","g3_w_1_legs_4_1_j":"100","g3_w_2_legs_2_0_n":"2.5","g3_w_1_pushB_2_1_j":"7","g3_w_1_pullA_2_2_n":"65","g3_w_1_pushB_0_1_j":"50"};
+            for (const k in w) lsSet(k, w[k]);
+            localStorage.setItem('gym_seeded_v1','1');
+        }
+        seedLegacyData();
         initDaysConfig();
         if (!getWeekDate(1)) setWeekDate(1, new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }));
         renderWeekLabel(); renderDayTabs(); renderDay();
