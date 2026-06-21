@@ -21,8 +21,9 @@
             --text2: #6b7280;
             --text3: #9ca3af;
             --border: #e5e7eb;
-            --jinu: #c8440a;
-            --neerav: #1a7a3a;
+            --jinu: #00c4b4;
+            --neerav: #d040fb;
+            --done: #22c55e;
             --blue: #1a4a8a;
             --purple: #7b2d8b;
             --nav-active: #1a4a8a;
@@ -30,13 +31,15 @@
 
         @media(prefers-color-scheme:dark) {
             :root {
-                --bg: #121316;
-                --card: #1c1e22;
-                --surface: #26282d;
+                --bg: #0d0f12;
+                --card: #161920;
+                --surface: #1e2128;
                 --text: #f0f0f0;
                 --text2: #9ca3af;
                 --text3: #6b7280;
-                --border: #2e3137;
+                --border: #2a2d35;
+                --jinu: #00d4c4;
+                --neerav: #e050ff;
                 --nav-active: #6aa7e0
             }
         }
@@ -390,11 +393,29 @@
 
         .set-row {
             display: grid;
-            grid-template-columns: 34px 1fr 1fr;
+            grid-template-columns: 34px 1fr 1fr 30px;
             padding: 6px 14px;
             border-top: 1px solid var(--border);
             align-items: center;
             gap: 8px
+        }
+
+        .set-check {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: 1.5px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: transparent;
+            flex: none
+        }
+
+        .set-check.logged {
+            background: var(--done);
+            border-color: var(--done);
+            color: #fff
         }
 
         .set-label {
@@ -412,7 +433,7 @@
         }
 
         .set-label.logged {
-            background: var(--neerav);
+            background: var(--done);
             color: #fff
         }
 
@@ -437,11 +458,11 @@
         }
 
         .winput-field.jinu {
-            border-color: rgba(200, 68, 10, .45)
+            border-color: rgba(0, 196, 180, .4)
         }
 
         .winput-field.neerav {
-            border-color: rgba(26, 122, 58, .45)
+            border-color: rgba(208, 64, 251, .4)
         }
 
         .winput-field.jinu:focus-within {
@@ -617,7 +638,7 @@
             border-radius: 14px;
             border: none;
             cursor: pointer;
-            background: linear-gradient(120deg, #1a7a3a, #28a04e);
+            background: linear-gradient(120deg, #00b8a9, #00d4c4);
             color: #fff;
             font-size: 15px;
             font-weight: 600;
@@ -629,8 +650,8 @@
 
         .save-btn.is-done {
             background: var(--surface);
-            color: var(--neerav);
-            box-shadow: inset 0 0 0 1.5px var(--neerav)
+            color: var(--done);
+            box-shadow: inset 0 0 0 1.5px var(--done)
         }
 
         .nav-bar {
@@ -1578,7 +1599,7 @@
                     Tracker</div>
                 <div class="tb-datepill"><span class="tb-dot"></span><span id="tbDate">—</span></div>
             </div>
-            <div class="tb-kicker" id="tbKicker">PUSH PULL LEGS</div>
+            <div class="tb-kicker" id="tbKicker">BRO SPLIT</div>
             <div class="tb-title"><span class="tb-dayname" id="tbDayName">—</span><span class="tb-focus"
                     id="tbFocus"></span></div>
             <div class="tb-prog">
@@ -1862,7 +1883,18 @@
         let currentDay = getDefaultDayTab(), currentWeek = 1, progWeek = 1;
         let timerSec = 90, timerMax = 90, timerRunning = false, timerInt = null;
         let editCtx = null, editDayCtx = null;
-        let slotOverrides = {}, currentEffectiveDayId = null;
+        let slotOverrides = {}, currentEffectiveDayId = null, autoSaveTimer = null;
+        function scheduleAutoSave(dayId) {
+            clearTimeout(autoSaveTimer);
+            autoSaveTimer = setTimeout(() => {
+                const s = getSessions(), key = isoDate();
+                if (!s[key]) s[key] = [];
+                const snap = buildSnapshot(currentWeek, dayId);
+                const idx = s[key].findIndex(e => sessionEntryDayId(e) === dayId);
+                if (idx >= 0) s[key][idx] = snap; else s[key].push(snap);
+                setSessions(s);
+            }, 800);
+        }
 
         function lsGet(k) { try { return localStorage.getItem(k) } catch (e) { return null } }
         function lsSet(k, v) { try { localStorage.setItem(k, v) } catch (e) { } }
@@ -1933,6 +1965,7 @@
             input.value = next;
             setWeight(week, dayId, ei, set, p, String(next));
             refreshLogStats();
+            scheduleAutoSave(dayId);
         }
 
         // Session log — keyed by real calendar date (YYYY-MM-DD), value = array of session snapshots.
@@ -2015,8 +2048,9 @@
                     const jph = jv === '' ? (getPrevWeight(wk, effectId, ei, s, 'j') || '—') : '—';
                     const nph = nv === '' ? (getPrevWeight(wk, effectId, ei, s, 'n') || '—') : '—';
                     rows += `<div class="set-row"><span class="set-label${setLogged ? ' logged' : ''}">S${s + 1}</span>` +
-                        `<div class="winput-wrap"><div class="winput-field jinu"><input class="weight-input jinu" type="number" inputmode="decimal" placeholder="${jph}" value="${jv}" onchange="setWeight(${wk},'${effectId}',${ei},${s},'j',this.value);refreshLogStats()"/><span class="kg-suffix">kg</span></div><button type="button" class="step-btn jinu" onclick="bumpWeight(this,${wk},'${effectId}',${ei},${s},'j')" aria-label="Add 2.5 kg">+</button></div>` +
-                        `<div class="winput-wrap"><div class="winput-field neerav"><input class="weight-input neerav" type="number" inputmode="decimal" placeholder="${nph}" value="${nv}" onchange="setWeight(${wk},'${effectId}',${ei},${s},'n',this.value);refreshLogStats()"/><span class="kg-suffix">kg</span></div><button type="button" class="step-btn neerav" onclick="bumpWeight(this,${wk},'${effectId}',${ei},${s},'n')" aria-label="Add 2.5 kg">+</button></div>` +
+                        `<div class="winput-wrap"><div class="winput-field jinu"><input class="weight-input jinu" type="number" inputmode="decimal" placeholder="${jph}" value="${jv}" onchange="setWeight(${wk},'${effectId}',${ei},${s},'j',this.value);refreshLogStats();scheduleAutoSave('${effectId}')"/><span class="kg-suffix">kg</span></div><button type="button" class="step-btn jinu" onclick="bumpWeight(this,${wk},'${effectId}',${ei},${s},'j')" aria-label="Add 2.5 kg">+</button></div>` +
+                        `<div class="winput-wrap"><div class="winput-field neerav"><input class="weight-input neerav" type="number" inputmode="decimal" placeholder="${nph}" value="${nv}" onchange="setWeight(${wk},'${effectId}',${ei},${s},'n',this.value);refreshLogStats();scheduleAutoSave('${effectId}')"/><span class="kg-suffix">kg</span></div><button type="button" class="step-btn neerav" onclick="bumpWeight(this,${wk},'${effectId}',${ei},${s},'n')" aria-label="Add 2.5 kg">+</button></div>` +
+                        `<span class="set-check${setLogged ? ' logged' : ''}"><svg class="ic" style="width:13px;height:13px"><use href="#i-check"/></svg></span>` +
                         `</div>`
                 }
                 exHtml += `<div class="ex-card"><div class="ex-top"><span class="ex-name"><span class="ex-num">${ei + 1}</span>${esc(ex.name)}</span><span class="ex-actions"><button class="icon-btn" onclick="openEdit(${ei})"><svg class="ic"><use href="#i-pencil"/></svg></button><button class="icon-btn" onclick="deleteEx(${ei})"><svg class="ic"><use href="#i-trash"/></svg></button></span></div><div class="ex-meta">3 × ${esc(ex.reps)} · ${exLogged} of 3 logged</div>${rows}</div>`;
@@ -2028,7 +2062,7 @@
             html += `<button class="add-ex-btn" onclick="openAdd()"><svg class="ic"><use href="#i-plus"/></svg> Add exercise</button>`;
             if (effectId === 'pullB') html += `<div class="cardio-card"><div class="ct"><svg class="ic"><use href="#i-run"/></svg> Cardio — 20 min after weights</div><div class="cd">Cycling / Elliptical / Ski Erg at Zone 2 pace. Build from 2-min intervals up to 20 min continuous.</div></div>`;
             const doneToday = sessionList(isoDate()).some(e => e.dayId === effectId);
-            html += `<div class="save-bar"><button class="save-btn${doneToday ? ' is-done' : ''}" onclick="markSessionDone('${effectId}')"><svg class="ic"><use href="#i-check"/></svg> ${doneToday ? 'Done today ✓' : 'Mark session done'}</button></div>`;
+            html += `<div class="save-bar"><button class="save-btn${doneToday ? ' is-done' : ''}" onclick="markSessionDone('${effectId}')"><svg class="ic"><use href="#i-check"/></svg> ${doneToday ? 'Session saved ✓' : 'Finish & save session'}</button></div>`;
             document.getElementById('dayContent').innerHTML = html;
             updateTopbar(effectDay, loggedSets, totalSets);
         }
@@ -2039,11 +2073,11 @@
             if (day) {
                 const slotDay = activeDays[currentDay];
                 const isSwapped = slotDay && currentEffectiveDayId && currentEffectiveDayId !== slotDay.id;
-                document.getElementById('tbKicker').textContent = isSwapped ? `SWITCHED FROM ${slotDay.tab.toUpperCase()}` : 'PUSH PULL LEGS';
+                document.getElementById('tbKicker').textContent = isSwapped ? `SWITCHED FROM ${slotDay.tab.toUpperCase()}` : 'BRO SPLIT';
                 document.getElementById('tbDayName').textContent = day.label.split('—')[0].trim();
                 document.getElementById('tbFocus').textContent = day.focus || '';
             } else {
-                document.getElementById('tbKicker').textContent = 'PUSH PULL LEGS';
+                document.getElementById('tbKicker').textContent = 'BRO SPLIT';
                 document.getElementById('tbDayName').textContent = 'No active day';
                 document.getElementById('tbFocus').textContent = 'Enable days in Settings';
             }
@@ -2066,6 +2100,8 @@
                     total++;
                     if (has) { exLogged++; logged++ }
                     row.querySelector('.set-label').classList.toggle('logged', has);
+                    const chk = row.querySelector('.set-check');
+                    if (chk) chk.classList.toggle('logged', has);
                 });
                 const meta = card.querySelector('.ex-meta');
                 if (meta) meta.textContent = meta.textContent.split('·')[0] + `· ${exLogged} of 3 logged`;
